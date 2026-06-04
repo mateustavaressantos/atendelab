@@ -8,7 +8,7 @@ CREATE TABLE usuarios (
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL,
-    perfil ENUM('admin', 'atendente') DEFAULT 'atendente',
+    perfil ENUM('admin', 'aluno', 'atendente') DEFAULT 'atendente';
     status ENUM('ativo', 'inativo') DEFAULT 'ativo',
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

@@ -1,0 +1,5 @@
+e se os dados da tabela estiver vinculados com outra tabela
+como vincular os dados com outra tabela
+curso e periodo podem ser tipo enum
+atualizar sem usar sempre as mesmas coisas
+atualizar status, visualizar em atendimentoscontroller ?

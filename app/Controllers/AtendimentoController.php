@@ -139,60 +139,35 @@ class AtendimentoController
         header('Content-Type: application/json; charset=utf-8');
 
         $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
-        $pessoa_id = filter_input(INPUT_POST, 'pessoa_id', FILTER_VALIDATE_INT);
-        $usuario_id = filter_input(INPUT_POST, 'usuario_id', FILTER_VALIDATE_INT);
-        $tipo_atendimento_id = filter_input(INPUT_POST, 'tipo_atendimento_id', FILTER_VALIDATE_INT);
-        $data_atendimento = $_POST['data_atendimento'] ?? '';
-        $hora_atendimento = $_POST['hora_atendimento'] ?? '';
-        $descricao = isset($_POST['descricao']) && trim($_POST['descricao']) !== '' ? trim($_POST['descricao']) : null;
-        $observacao = isset($_POST['observacao']) && trim($_POST['observacao']) !== '' ? trim($_POST['observacao']) : null;
-        $status = $_POST['status'] ?? 'pendente';
+        $status = $_POST['status'] ?? null;
 
-        if (!$id || !$pessoa_id || !$usuario_id || !$tipo_atendimento_id || empty($data_atendimento) || empty($hora_atendimento)) {
+        if (!$id || empty($status)) {
             http_response_code(400);
-            echo json_encode(['erro' => 'Os campos ID, Pessoa, Usuário, Tipo, Data e Hora são obrigatórios.']);
+            echo json_encode(['erro' => 'Os campos ID e Status são obrigatórios.'], JSON_UNESCAPED_UNICODE);
             return;
         }
 
         if (!in_array($status, ['pendente', 'em_andamento', 'concluido', 'cancelado'], true)) {
             http_response_code(400);
-            echo json_encode(['erro' => 'Status do atendimento inválido.']);
+            echo json_encode(['erro' => 'Status do atendimento inválido.'], JSON_UNESCAPED_UNICODE);
             return;
         }
 
         try {
             $sql = 'UPDATE atendimentos
-                    SET pessoa_id = :pessoa_id,
-                        usuario_id = :usuario_id,
-                        tipo_atendimento_id = :tipo_atendimento_id,
-                        data_atendimento = :data_atendimento,
-                        hora_atendimento = :hora_atendimento,
-                        descricao = :descricao,
-                        observacao = :observacao,
-                        status = :status
+                    SET status = :status
                     WHERE id = :id';
 
             $stmt = $this->pdo->prepare($sql);
-            $stmt->bindValue(':pessoa_id', $pessoa_id, PDO::PARAM_INT);
-            $stmt->bindValue(':usuario_id', $usuario_id, PDO::PARAM_INT);
-            $stmt->bindValue(':tipo_atendimento_id', $tipo_atendimento_id, PDO::PARAM_INT);
-            $stmt->bindValue(':data_atendimento', $data_atendimento);
-            $stmt->bindValue(':hora_atendimento', $hora_atendimento);
-            $stmt->bindValue(':descricao', $descricao, $descricao === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
-            $stmt->bindValue(':observacao', $observacao, $observacao === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
-            $stmt->bindValue(':status', $status);
+            $stmt->bindValue(':status', $status, PDO::PARAM_STR);
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
 
-            echo json_encode(['mensagem' => 'Atendimento atualizado com sucesso.'], JSON_UNESCAPED_UNICODE);
+            echo json_encode(['mensagem' => 'Status do atendimento atualizado com sucesso.'], JSON_UNESCAPED_UNICODE);
 
         } catch (PDOException $e) {
             http_response_code(500);
-            if ($e->getCode() == 23000) {
-                echo json_encode(['erro' => 'Erro de integridade ao atualizar. Verifique os dados relacionais vinculados.']);
-            } else {
-                echo json_encode(['erro' => 'Erro ao atualizar o atendimento.']);
-            }
+            echo json_encode(['erro' => 'Erro ao atualizar o status do atendimento.'], JSON_UNESCAPED_UNICODE);
         }
     }
 

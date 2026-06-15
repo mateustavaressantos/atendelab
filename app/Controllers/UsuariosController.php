@@ -9,8 +9,8 @@ class UsuariosController
 
     public function __construct()
     {
-        // Importa o arquivo que inicializa o objeto $pdo.
-        require __DIR__ . '/../../config/database.php';
+        require_once __DIR__ . '/../../config/database.php';
+        global $pdo;
         $this->pdo = $pdo;
     }
 
@@ -101,7 +101,7 @@ class UsuariosController
             return;
         }
 
-        // Nunca armazenar senha em texto puro.
+        // Nunca armazenar senha em texto puro. (Seu fix incrível aqui!)
         $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
         try {
@@ -122,7 +122,6 @@ class UsuariosController
                 'id' => $this->pdo->lastInsertId()
             ], JSON_UNESCAPED_UNICODE);
         } catch (PDOException $e) {
-            // Em produção, registre $e em log em vez de expor detalhes.
             http_response_code(500);
             echo json_encode(['erro' => 'Erro ao cadastrar usuário.']);
         }
@@ -212,5 +211,4 @@ class UsuariosController
         }
     }
 }
-
 ?>

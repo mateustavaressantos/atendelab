@@ -161,18 +161,36 @@ class AuthController
 
     public function logout(): void
     {
-        // Garante que a sessão está ativa antes de manipulá-la
+        //Garante que a sessão está ativa
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
 
-        // Remove apenas os dados do usuário logado da sessão
-        unset($_SESSION['usuario']);
+        //Limpa absolutamente todos os dados da sessão na memória
+        $_SESSION = [];
 
-        // Define a mensagem de sucesso que será exibida na tela de login
+        //Deleta o cookie antigo no navegador do usuário
+        if (ini_get('session.use_cookies')) {
+            $params = session_get_cookie_params();
+            setcookie(
+                session_name(),
+                '',
+                time() - 42000,
+                $params['path'],
+                $params['domain'],
+                $params['secure'],
+                $params['httponly']
+            );
+        }
+
+        // Gera um ID de sessão totalmente novo e apaga o antigo no servidor
+        // Isso invalida a sessão anterior por segurança, mas mantém o "canal" aberto para a mensagem
+        session_regenerate_id(true);
+
+        // Define a mensagem com segurança na nova sessão limpa
         $_SESSION['mensagem'] = 'Sessão encerrada com sucesso.';
 
-        // Retorna para a tela de login.
+        // Redireciona o usuário
         header('Location: ?controller=auth&action=login');
         exit;
     }

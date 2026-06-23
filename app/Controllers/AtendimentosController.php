@@ -6,7 +6,8 @@ class AtendimentosController
 
     public function __construct()
     {
-        $this->pdo = Database::getInstance();
+        require __DIR__ . '/../../config/database.php';
+        $this->pdo = $pdo;
     }
 
     public function listar(): void
@@ -27,13 +28,13 @@ class AtendimentosController
                     FROM atendimentos a
                     JOIN pessoas p ON a.pessoa_id = p.id
                     JOIN usuarios u ON a.usuario_id = u.id
-                    JOIN tipo_atendimentos t ON a.tipo_atendimento_id = t.id
-                    ORDER BY a.data_atendimento DESC, a.horario_atendimento DESC';
+                    JOIN tipos_atendimentos t ON a.tipo_atendimento_id = t.id
+                    ORDER BY a.id DESC';
 
             $stmt = $this->pdo->query($sql);
-            $atendimentos = $stmt->fetchAll();
+            $atendimentos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            echo json_encode($atendimentos, JSON_UNESCAPED_UNICODE);
+            echo json_encode($atendimentos, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
         } catch (PDOException $e) {
             http_response_code(500);
@@ -71,10 +72,10 @@ class AtendimentosController
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
 
-            $atendimento = $stmt->fetch();
+            $atendimento = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($atendimento) {
-                echo json_encode($atendimento, JSON_UNESCAPED_UNICODE);
+                echo json_encode($atendimento, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
             } else {
                 http_response_code(404);
                 echo json_encode(['erro' => 'Atendimento não encontrado.'], JSON_UNESCAPED_UNICODE);
@@ -173,7 +174,7 @@ class AtendimentosController
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
 
-            echo json_encode(['mensagem' => 'Status do atendimento atualizado com sucesso.'], JSON_UNESCAPED_UNICODE);
+            echo json_encode(['mensagem' => 'Status do atendimento actualizado com sucesso.'], JSON_UNESCAPED_UNICODE);
 
         } catch (PDOException $e) {
             http_response_code(500);

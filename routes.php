@@ -76,7 +76,7 @@ switch ($controller) {
         break;
 
     case 'atendimentos':
-        $atendimentoController = new AtendimentoController();
+        $atendimentoController = new AtendimentosController();
 
         switch ($action) {
             case 'listar':
@@ -102,7 +102,7 @@ switch ($controller) {
         break;
 
     case 'pessoas':
-        $pessoaController = new PessoaController();
+        $pessoaController = new PessoasController();
 
         switch ($action) {
             case 'listar':
@@ -132,7 +132,7 @@ switch ($controller) {
         break;
 
     case 'tipos_atendimentos':
-        $tipoAtendimentoController = new TipoAtendimentoController();
+        $tipoAtendimentoController = new TiposAtendimentosController();
 
         switch ($action) {
             case 'listar':

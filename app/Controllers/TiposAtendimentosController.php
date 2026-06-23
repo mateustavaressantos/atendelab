@@ -1,6 +1,6 @@
 <?php
 
-class TipoAtendimentoController
+class TiposAtendimentosController
 {
     private PDO $pdo;
 

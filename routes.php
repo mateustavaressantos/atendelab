@@ -6,9 +6,9 @@ require_once __DIR__ . '/app/Middleware/auth.php';
 
 // Carrega o controller responsável pelos endpoints de usuários.
 require_once __DIR__ . '/app/Controllers/UsuariosController.php';
-require_once __DIR__ . '/app/Controllers/AtendimentoController.php';
-require_once __DIR__ . '/app/Controllers/PessoaController.php';
-require_once __DIR__ . '/app/Controllers/TipoAtendimentoController.php';
+require_once __DIR__ . '/app/Controllers/AtendimentosController.php';
+require_once __DIR__ . '/app/Controllers/PessoasController.php';
+require_once __DIR__ . '/app/Controllers/TiposAtendimentosController.php';
 
 // Define controller e action por query string.
 // Exemplo: ?controller=usuarios&action=listar

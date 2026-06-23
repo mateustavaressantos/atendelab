@@ -14,8 +14,7 @@ CREATE TABLE usuarios (
     perfil ENUM('admin', 'atendente') DEFAULT 'atendente',
     status ENUM('ativo', 'inativo') DEFAULT 'ativo',
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        ON UPDATE CURRENT_TIMESTAMP
+    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE pessoas (
@@ -29,8 +28,7 @@ CREATE TABLE pessoas (
     observacoes TEXT,
     status ENUM('ativo', 'inativo') DEFAULT 'ativo',
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        ON UPDATE CURRENT_TIMESTAMP
+    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE tipos_atendimentos (
@@ -39,8 +37,7 @@ CREATE TABLE tipos_atendimentos (
     descricao TEXT,
     status ENUM('ativo', 'inativo') DEFAULT 'ativo',
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        ON UPDATE CURRENT_TIMESTAMP
+    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE atendimentos (
@@ -49,22 +46,16 @@ CREATE TABLE atendimentos (
     tipo_atendimento_id INT NOT NULL,
     usuario_id INT NOT NULL,
     descricao TEXT NOT NULL,
-    status ENUM('aberto', 'em_andamento', 'concluido')
-        DEFAULT 'aberto',
+    status ENUM('aberto', 'em_andamento', 'concluido') DEFAULT 'aberto',
     data_atendimento DATE NOT NULL,
     horario_atendimento TIME NOT NULL,
     observacao_final TEXT,
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        ON UPDATE CURRENT_TIMESTAMP,
+    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-    CONSTRAINT fk_atendimentos_pessoa
-        FOREIGN KEY (pessoa_id) REFERENCES pessoas(id),
-    CONSTRAINT fk_atendimentos_tipo
-        FOREIGN KEY (tipo_atendimento_id)
-        REFERENCES tipos_atendimentos(id),
-    CONSTRAINT fk_atendimentos_usuario
-        FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+    CONSTRAINT fk_atendimentos_pessoa FOREIGN KEY (pessoa_id) REFERENCES pessoas(id),
+    CONSTRAINT fk_atendimentos_tipo FOREIGN KEY (tipo_atendimento_id) REFERENCES tipos_atendimentos(id),
+    CONSTRAINT fk_atendimentos_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 );
 
 INSERT INTO usuarios (nome, email, senha, perfil, status)

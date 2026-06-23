@@ -16,10 +16,10 @@ class UsuariosController
 
     public function listar(): void
     {
-        // Define saída em JSON para APIs/consumo por front-end.
+        // Define saída em JSON para APIs/consumo por front-end
         header('Content-Type: application/json; charset=utf-8');
 
-        // Consulta todos os usuários com ordenação decrescente por ID.
+        // Consulta todos os usuários com ordenação decrescente por ID
         $sql = 'SELECT id, nome, email, perfil, status, criado_em
                 FROM usuarios
                 ORDER BY id DESC';
@@ -27,7 +27,7 @@ class UsuariosController
         $stmt = $this->pdo->query($sql);
         $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // JSON_PRETTY_PRINT melhora leitura em desenvolvimento.
+        // JSON_PRETTY_PRINT melhora leitura em desenvolvimento
         echo json_encode($usuarios, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
 
@@ -35,7 +35,7 @@ class UsuariosController
     {
         header('Content-Type: application/json; charset=utf-8');
 
-        // Lê e valida o ID recebido por GET.
+        // Lê e valida o ID recebido por GET
         $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
         if (!$id) {
@@ -44,7 +44,7 @@ class UsuariosController
             return;
         }
 
-        // Consulta parametrizada evita SQL Injection.
+        // Consulta parametrizada evita SQL Injection
         $sql = 'SELECT id, nome, email, perfil, status, criado_em
                 FROM usuarios
                 WHERE id = :id';
@@ -68,14 +68,14 @@ class UsuariosController
     {
         header('Content-Type: application/json; charset=utf-8');
 
-        // Coleta dados do formulário (POST).
+        // Coleta dados do formulário (POST)
         $nome = trim($_POST['nome'] ?? '');
         $email = trim($_POST['email'] ?? '');
         $senha = $_POST['senha'] ?? '';
         $perfil = $_POST['perfil'] ?? 'atendente';
         $status = $_POST['status'] ?? 'ativo';
 
-        // Regras mínimas de validação de entrada.
+        // Regras mínimas de validação de entrada
         if ($nome === '' || $email === '' || $senha === '') {
             http_response_code(400);
             echo json_encode(['erro' => 'Nome, e-mail e senha são obrigatórios.']);
@@ -101,7 +101,7 @@ class UsuariosController
             return;
         }
 
-        // Nunca armazenar senha em texto puro. (Seu fix incrível aqui!)
+        // Nunca armazenar senha em texto puro
         $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
         try {

@@ -14,7 +14,7 @@ class PessoaController
     {
         header('Content-Type: application/json; charset=utf-8');
 
-        $sql = 'SELECT id, nome, documento, telefone, curso, periodo, status
+        $sql = 'SELECT id, nome, documento, telefone, curso, periodo, email, observacoes, status
                 FROM pessoas
                 ORDER BY id DESC';
 
@@ -36,7 +36,7 @@ class PessoaController
             return;
         }
 
-        $sql = 'SELECT id, nome, documento, telefone, curso, periodo, status
+        $sql = 'SELECT id, nome, documento, telefone, curso, periodo, email, observacoes, status
                 FROM pessoas
                 WHERE id = :id';
 
@@ -64,11 +64,13 @@ class PessoaController
         $telefone = trim($_POST['telefone'] ?? '');
         $curso = trim($_POST['curso'] ?? '');
         $periodo = trim($_POST['periodo'] ?? '');
+        $email = trim($_POST['email'] ?? '');
+        $observacoes = trim($_POST['observacoes'] ?? null);
         $status = $_POST['status'] ?? 'ativo';
 
-        if ($nome === '' || $documento === '' || $telefone === '' || $curso === '' || $periodo === '') {
+        if ($nome === '' || $documento === '' || $telefone === '' || $curso === '' || $periodo === '' || $email === '') {
             http_response_code(400);
-            echo json_encode(['erro' => 'Nome, documento, telefone, curso e período são obrigatórios.']);
+            echo json_encode(['erro' => 'Nome, documento, telefone, curso, período e e-mail são obrigatórios.']);
             return;
         }
 
@@ -79,8 +81,8 @@ class PessoaController
         }
 
         try {
-            $sql = 'INSERT INTO pessoas (nome, documento, telefone, curso, periodo, status)
-                    VALUES (:nome, :documento, :telefone, :curso, :periodo, :status)';
+            $sql = 'INSERT INTO pessoas (nome, documento, telefone, curso, periodo, email, observacoes, status)
+                    VALUES (:nome, :documento, :telefone, :curso, :periodo, :email, :observacoes, :status)';
 
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindValue(':nome', $nome);
@@ -88,6 +90,8 @@ class PessoaController
             $stmt->bindValue(':telefone', $telefone);
             $stmt->bindValue(':curso', $curso);
             $stmt->bindValue(':periodo', $periodo);
+            $stmt->bindValue(':email', $email);
+            $stmt->bindValue(':observacoes', $observacoes);
             $stmt->bindValue(':status', $status);
             $stmt->execute();
 
@@ -100,14 +104,14 @@ class PessoaController
         } catch (PDOException $e) {
             http_response_code(500);
             if ($e->getCode() == 23000) {
-                echo json_encode(['erro' => 'Este documento já está cadastrado.']);
+                echo json_encode(['erro' => 'Este documento ou e-mail já está cadastrado.']);
             } else {
                 echo json_encode(['erro' => 'Erro ao cadastrar pessoa.']);
             }
         }
     }
 
-    public function atualizar(): void
+    public function actualizar(): void
     {
         header('Content-Type: application/json; charset=utf-8');
 
@@ -117,11 +121,13 @@ class PessoaController
         $telefone = trim($_POST['telefone'] ?? '');
         $curso = trim($_POST['curso'] ?? '');
         $periodo = trim($_POST['periodo'] ?? '');
+        $email = trim($_POST['email'] ?? '');
+        $observacoes = trim($_POST['observacoes'] ?? null);
         $status = $_POST['status'] ?? 'ativo';
 
-        if (!$id || $nome === '' || $documento === '' || $telefone === '' || $curso === '' || $periodo === '') {
+        if (!$id || $nome === '' || $documento === '' || $telefone === '' || $curso === '' || $periodo === '' || $email === '') {
             http_response_code(400);
-            echo json_encode(['erro' => 'Id, nome, documento, telefone, curso e período são obrigatórios.']);
+            echo json_encode(['erro' => 'Id, nome, documento, telefone, curso, período e e-mail são obrigatórios.']);
             return;
         }
 
@@ -138,6 +144,8 @@ class PessoaController
                         telefone = :telefone,
                         curso = :curso,
                         periodo = :periodo,
+                        email = :email,
+                        observacoes = :observacoes,
                         status = :status
                     WHERE id = :id';
 
@@ -147,6 +155,8 @@ class PessoaController
             $stmt->bindValue(':telefone', $telefone);
             $stmt->bindValue(':curso', $curso);
             $stmt->bindValue(':periodo', $periodo);
+            $stmt->bindValue(':email', $email);
+            $stmt->bindValue(':observacoes', $observacoes);
             $stmt->bindValue(':status', $status);
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
@@ -156,7 +166,7 @@ class PessoaController
         } catch (PDOException $e) {
             http_response_code(500);
             if ($e->getCode() == 23000) {
-                echo json_encode(['erro' => 'Este documento já está sendo usado por outra pessoa.']);
+                echo json_encode(['erro' => 'Este documento ou e-mail já está sendo usado por outra pessoa.']);
             } else {
                 echo json_encode(['erro' => 'Erro ao atualizar dados da pessoa.']);
             }

@@ -21,7 +21,7 @@ class AtendimentosController
                         a.data_atendimento, 
                         a.horario_atendimento AS hora_atendimento, 
                         a.descricao, 
-                        a.observacao, 
+                        a.observacao_final AS observacao, 
                         a.status,
                         p.nome AS pessoa_nome, 
                         u.nome AS usuario_nome, 
@@ -64,7 +64,7 @@ class AtendimentosController
                         a.data_atendimento, 
                         a.horario_atendimento AS hora_atendimento, 
                         a.descricao, 
-                        a.observacao, 
+                        a.observacao_final AS observacao, 
                         a.status
                     FROM atendimentos a
                     WHERE a.id = :id';
@@ -116,7 +116,7 @@ class AtendimentosController
         }
 
         try {
-            $sql = 'INSERT INTO atendimentos (pessoa_id, usuario_id, tipo_atendimento_id, data_atendimento, horario_atendimento, descricao, observacao, status)
+            $sql = 'INSERT INTO atendimentos (pessoa_id, usuario_id, tipo_atendimento_id, data_atendimento, horario_atendimento, descricao, observacao_final, status)
                     VALUES (:pessoa_id, :usuario_id, :tipo_atendimento_id, :data_atendimento, :hora_atendimento, :descricao, :observacao, :status)';
 
             $stmt = $this->pdo->prepare($sql);
@@ -175,7 +175,7 @@ class AtendimentosController
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
 
-            echo json_encode(['mensagem' => 'Status do atendimento actualizado com sucesso.'], JSON_UNESCAPED_UNICODE);
+            echo json_encode(['mensagem' => 'Status do atendimento atualizado com sucesso.'], JSON_UNESCAPED_UNICODE);
 
         } catch (PDOException $e) {
             http_response_code(500);

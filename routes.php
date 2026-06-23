@@ -92,8 +92,8 @@ switch ($controller) {
                 $atendimentoController->criar();
                 break;
                 
-            case 'atualizar':
-                $atendimentoController->atualizar();
+            case 'alterarStatus':
+                $atendimentoController->alterarStatus();
                 break;
                 
             default:

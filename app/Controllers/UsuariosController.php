@@ -20,7 +20,7 @@ class UsuariosController
         header('Content-Type: application/json; charset=utf-8');
 
         // Consulta todos os usuários com ordenação decrescente por ID
-        $sql = 'SELECT id, nome, email, perfil, status, criado_em
+        $sql = 'SELECT id, nome, email, perfil, status, criado_em, atualizado_em
                 FROM usuarios
                 ORDER BY id DESC';
 
@@ -45,7 +45,7 @@ class UsuariosController
         }
 
         // Consulta parametrizada evita SQL Injection
-        $sql = 'SELECT id, nome, email, perfil, status, criado_em
+        $sql = 'SELECT id, nome, email, perfil, status, criado_em, atualizado_em
                 FROM usuarios
                 WHERE id = :id';
 

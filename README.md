@@ -24,3 +24,7 @@ Software.
 4. Criar o banco atendelab.
 5. Importar o script database/atendelab.sql.
 6. Acessar http://localhost/atendelab/public/
+## Dados para Acesso Padrão (Login)
+Para testar o primeiro acesso ao sistema na tela de login, utilize as credenciais padrão criadas no banco de dados:
+- **E-mail:** admin@atendelab.com
+- **Senha:** 123456

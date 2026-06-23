@@ -95,10 +95,6 @@ switch ($controller) {
                 $atendimentoController->atualizar();
                 break;
                 
-            case 'excluir':
-                $atendimentoController->excluir();
-                break;
-                
             default:
                 http_response_code(404);
                 echo 'Ação de atendimentos não encontrada.';
@@ -125,8 +121,8 @@ switch ($controller) {
                 $pessoaController->atualizar();
                 break;
                 
-            case 'excluir':
-                $pessoaController->excluir();
+            case 'inativar':
+                $pessoaController->inativar();
                 break;
                 
             default:
@@ -155,8 +151,8 @@ switch ($controller) {
                 $tipoAtendimentoController->atualizar();
                 break;
                 
-            case 'excluir':
-                $tipoAtendimentoController->excluir();
+            case 'inativar':
+                $tipoAtendimentoController->inativar();
                 break;
                 
             default:

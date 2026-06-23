@@ -163,7 +163,7 @@ class PessoaController
         }
     }
 
-    public function excluir(): void
+    public function inativar(): void
     {
         header('Content-Type: application/json; charset=utf-8');
 
@@ -176,21 +176,17 @@ class PessoaController
         }
 
         try {
-            $sql = 'DELETE FROM pessoas WHERE id = :id';
+            $sql = "UPDATE pessoas SET status = 'inativo' WHERE id = :id";
             
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
 
-            echo json_encode(['mensagem' => 'Pessoa excluída com sucesso.'], JSON_UNESCAPED_UNICODE);
+            echo json_encode(['mensagem' => 'Pessoa inativada com sucesso.'], JSON_UNESCAPED_UNICODE);
 
         } catch (PDOException $e) {
             http_response_code(500);
-            if ($e->getCode() == 23000) {
-                echo json_encode(['erro' => 'Não é possível excluir esta pessoa porque ela possui atendimentos vinculados.']);
-            } else {
-                echo json_encode(['erro' => 'Erro ao excluir pessoa.']);
-            }
+            echo json_encode(['erro' => 'Erro ao inativar pessoa.']);
         }
     }
 }

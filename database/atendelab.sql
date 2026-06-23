@@ -80,6 +80,6 @@ INSERT INTO pessoas
 (nome, documento, telefone, email, curso, periodo, status, observacoes)
 VALUES
 ('João da Silva', '123.456.789-00', '(47) 99999-0001', 'joao.silva@exemplo.com', 'Engenharia de Software', '5º', 'ativo', NULL),
-('Ana Carolina', '987.654.321-00', '(47) 99999-0002', 'ana.carolina@exemplo.com', 'Sistemas de Informação', '7º', 'ativo', NULL)
+('Ana Carolina', '987.654.321-00', '(47) 99999-0002', 'ana.carolina@exemplo.com', 'Sistemas de Informação', '7º', 'ativo', NULL),
 ('Carlos Henrique Souza', '321.654.987-10', '(47) 99999-0010', 'carlos.souza@exemplo.com', 'Engenharia de Software', '3º', 'ativo', 'Aluno interessado em orientação sobre atividades complementares.'),
 ('Mariana Oliveira Costa', '741.852.963-20', '(47) 99999-0011', 'mariana.oliveira@exemplo.com', 'Sistemas de Informação', '5º', 'ativo', NULL);

@@ -150,7 +150,7 @@ class UsuariosController
             return;
         }
 
-        if (!in_array($perfil, ['admin', 'aluno', 'atendente'], true)) {
+        if (!in_array($perfil, ['admin', 'atendente'], true)) {
             http_response_code(400);
             echo json_encode(['erro' => 'Perfil inválido.']);
             return;

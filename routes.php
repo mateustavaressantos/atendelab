@@ -65,8 +65,8 @@ switch ($controller) {
                 $usuariosController->atualizar();
                 break;
 
-            case 'excluir':
-                $usuariosController->excluir();
+            case 'inativar':
+                $usuariosController->inativar();
                 break;
 
             default:

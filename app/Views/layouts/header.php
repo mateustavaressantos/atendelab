@@ -1,7 +1,10 @@
 <?php
 declare(strict_types=1);
 require_once __DIR__ . '/config-view.php';
-$TituloPagina = $tituloPagina ?? 'AtendeLab';
+
+// Correção: Garante que se $TituloPagina não vier da View, use um valor padrão seguro
+$TituloPagina = $TituloPagina ?? 'AtendeLab';
+
 $usuarioLogado = $_SESSION['usuario'] ?? [];
 $nomeUsuario = htmlspecialchars(
     (string) ($usuarioLogado['nome'] ?? 'Usuário'),
@@ -21,7 +24,7 @@ $perfilUsuario = htmlspecialchars(
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         <?= htmlspecialchars(
-            $tituloPagina,
+            $TituloPagina, // Correção: T maiúsculo para coincidir com as suas Views
             ENT_QUOTES,
             'UTF-8'
         ) ?>

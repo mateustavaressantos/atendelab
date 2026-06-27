@@ -160,18 +160,6 @@ switch ($controller) {
         }
         break;
 
-    case 'home':
-        echo '<h1>AtendeLab</h1>';
-        echo '<p>Projeto em execução. Exemplos de rotas para testar:</p>';
-        echo '<ul>';
-        echo '<li><a href="?controller=auth&action=login">Ir para o Login</a></li>';
-        echo '<li><a href="?controller=usuarios&action=listar">Listar Usuários (Requer Login)</a></li>';
-        echo '<li><a href="?controller=pessoas&action=listar">Listar Pessoas</a></li>';
-        echo '<li><a href="?controller=tipos_atendimento&action=listar">Listar Tipos de Atendimento</a></li>';
-        echo '<li><a href="?controller=atendimentos&action=listar">Listar Atendimentos</a></li>';
-        echo '</ul>';
-        break;
-
     // ROTA NÃO ENCONTRADA (404)
     default:
         http_response_code(404);

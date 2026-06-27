@@ -13,7 +13,7 @@ class FrontendController
     public function tiposAtendimentos(): void
     {
         exigirAutenticacao();
-        require_once __DIR__ . '/../Views/tipos-atendimentos/index.php';
+        require_once __DIR__ . '/../Views/tipos_atendimentos/index.php';
     }
 
     public function atendimentos(): void

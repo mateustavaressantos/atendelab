@@ -18,6 +18,16 @@ class AtendimentosController
         echo json_encode($dados, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
 
+    private function usuarioResponsavel(): ?int
+    {
+        if (isset($_SESSION['usuario']['id'])) {
+            return (int) $_SESSION['usuario']['id'];
+        }
+        
+        $idPost = filter_input(INPUT_POST, 'usuario_id', FILTER_VALIDATE_INT);
+        return $idPost ?: null;
+    }
+
     public function listar(): void
     {
         try {
@@ -88,7 +98,9 @@ class AtendimentosController
     public function criar(): void
     {
         $pessoa_id = filter_input(INPUT_POST, 'pessoa_id', FILTER_VALIDATE_INT);
-        $usuario_id = filter_input(INPUT_POST, 'usuario_id', FILTER_VALIDATE_INT);
+        
+        $usuario_id = $this->usuarioResponsavel(); 
+        
         $tipo_atendimento_id = filter_input(INPUT_POST, 'tipo_atendimento_id', FILTER_VALIDATE_INT);
         
         $data_atendimento = $_POST['data_atendimento'] ?? '';

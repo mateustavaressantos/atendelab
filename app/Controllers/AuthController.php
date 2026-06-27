@@ -125,40 +125,6 @@ class AuthController
         require_once __DIR__ . '/../Views/dashboard/index.php';
     }
 
-    // public function logout(): void
-    // {
-    //     // Remove os dados armazenados na sessão.
-    //     $_SESSION = [];
-
-    //     // Remove o cookie da sessão, caso esteja sendo utilizado.
-    //     if (ini_get('session.use_cookies')) {
-    //         $params = session_get_cookie_params();
-
-    //         setcookie(
-    //             session_name(),
-    //             '',
-    //             time() - 42000,
-    //             $params['path'],
-    //             $params['domain'],
-    //             $params['secure'],
-    //             $params['httponly']
-    //         );
-    //     }
-
-    //     // Encerra a sessão atual.
-    //     session_destroy();
-
-    //     // Inicia nova sessão apenas para enviar a mensagem de retorno.
-    //     session_start();
-
-    //     // Mensagem exibida após o logout.
-    //     $_SESSION['mensagem'] = 'Sessão encerrada com sucesso.';
-
-    //     // Retorna para a tela de login.
-    //     header('Location: ?controller=auth&action=login');
-    //     exit;
-    // }
-
     public function logout(): void
     {
         //Garante que a sessão está ativa

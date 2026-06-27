@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/Middleware/auth.php';
+require_once __DIR__ . '/../Middleware/auth.php';
 
 class FrontendController
 {

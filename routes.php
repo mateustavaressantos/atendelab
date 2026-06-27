@@ -1,17 +1,18 @@
 <?php
 
-// Imports do primeiro bloco de código
-require_once __DIR__ . '/app/Controllers/AuthController.php';
+// Imports de autenticação e sessão
 require_once __DIR__ . '/app/Middleware/auth.php';
+require_once __DIR__ . '/app/Controllers/AuthController.php';
 
-// Carrega o controller responsável pelos endpoints de usuários.
+// Carrega os controladores responsáveis pelas entidades e regras de negócio
 require_once __DIR__ . '/app/Controllers/UsuariosController.php';
 require_once __DIR__ . '/app/Controllers/AtendimentosController.php';
 require_once __DIR__ . '/app/Controllers/PessoasController.php';
 require_once __DIR__ . '/app/Controllers/TiposAtendimentosController.php';
+require_once __DIR__ . '/app/Controllers/DashboardController.php';
+require_once __DIR__ . '/app/Controllers/FrontendController.php';
 
-// Define controller e action por query string.
-// Exemplo: ?controller=usuarios&action=listar
+// Define controller e action por query string
 $controller = $_GET['controller'] ?? 'auth';
 $action = $_GET['action'] ?? 'login';
 
@@ -40,6 +41,36 @@ switch ($controller) {
             default:
                 http_response_code(404);
                 echo 'Ação de autenticação não encontrada.';
+        }
+        break;
+
+    case 'dashboard':
+        $dashboard = new DashboardController();
+        switch ($action) {
+            case 'resumo':
+                $dashboard->resumo();
+                break;
+            default:
+                http_response_code(404);
+                echo 'Ação não encontrada.';
+        }
+        break;
+
+    case 'frontend':
+        $front = new FrontendController();
+        switch ($action) {
+            case 'pessoas':
+                $front->pessoas();
+                break;
+            case 'tipos':
+                $front->tiposAtendimentos();
+                break;
+            case 'atendimentos':
+                $front->atendimentos();
+                break;
+            default:
+                http_response_code(404);
+                echo 'Página não encontrada.';
         }
         break;
 

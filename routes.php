@@ -115,22 +115,19 @@ switch ($controller) {
                 $atendimentosController->listar();
                 break;
             case 'visualizar':
-                $atendimentosController->visualizar();
+                $atendimentosController->buscarPorId(); // Corrigido de visualizar() para buscarPorId() conforme o controlador
                 break;
             case 'criar':
                 $atendimentosController->criar();
                 break;
             case 'alterarStatus':
             case 'atualizarStatus':
-                $atendimentosController->atualizarStatus();
-                break;
-            case 'opcoesFormulario':
-                $atendimentosController->opcoesFormulario();
+                // CORREÇÃO: alterado de atualizarStatus() para alterarStatus()
+                $atendimentosController->alterarStatus(); 
                 break;
             default:
-                responderRotaNaoEncontrada(
-                    'Ação de atendimentos não encontrada.'
-                );
+                http_response_code(404);
+                echo 'Ação de atendimentos não encontrada.';
         }
         break;
 

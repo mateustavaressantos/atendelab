@@ -142,11 +142,7 @@ async function carregarTipos() {
 
 async function editarTipo(id) {
     try {
-        const resposta = await AtendeLabApi.get(
-            'tipos',
-            'buscar',
-            { id }
-        );
+        const resposta = await AtendeLabApi.get('tipos', 'buscarPorId', { id });
         
         const tipo = AtendeLabApi.toObject(resposta);
         novoTipo();
@@ -177,11 +173,7 @@ formTipo.addEventListener('submit', async (event) => {
         : 'Tipo cadastrado com sucesso.';
         
     try {
-        await AtendeLabApi.post(
-            'types',
-            acao,
-            new FormData(formTipo)
-        );
+        await AtendeLabApi.post('tipos', acao, new FormData(formTipo));
         
         AtendeLabApi.showAlert(
             'alerta',

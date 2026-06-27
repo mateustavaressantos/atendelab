@@ -100,7 +100,7 @@ class AtendimentosController
         $status = $_POST['status'] ?? 'aberto'; 
 
         if (!$pessoa_id || !$usuario_id || !$tipo_atendimento_id || $descricao === '' || $data_atendimento === '' || $horario_atendimento === '') {
-            $this->json(['erro' => 'Pessoa, Usuário, Tipo, Data e Horário são obrigatórios.'], 422);
+            $this->json(['erro' => 'Pessoa, Tipo, Data, Horário e Descrição são obrigatórios.'], 422);
             return;
         }
 

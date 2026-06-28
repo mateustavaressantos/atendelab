@@ -16,7 +16,6 @@ Software.
 - Cadastro de pessoas atendidas
 - Cadastro de tipos de atendimento
 - Registro de atendimentos
-- Relatórios
 ## Como executar localmente
 1. Clonar o repositório.
 2. Colocar a pasta no htdocs do XAMPP.

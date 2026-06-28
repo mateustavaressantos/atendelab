@@ -23,7 +23,7 @@
        href="<?= url('routes.php?controller=atendimentos&action=index') ?>">
        <i class="bi bi-journal-check"></i> Atendimentos
     </a>
-    <?php if (($usuario['perfil'] ?? '') === 'administrador'): ?>
+    <?php if (($usuario['perfil'] ?? '') === 'admin'): ?>
         <a class="nav-link <?= $controllerAtual === 'usuarios' ? 'active' : '' ?>"
            href="<?= url('routes.php?controller=usuarios&action=index') ?>">
            <i class="bi bi-person-gear"></i> Usuários

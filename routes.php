@@ -84,7 +84,7 @@ switch ($controller) {
                 break;
 
             case 'buscar':
-            case 'buscarPorId': // Mapeia ambas as possibilidades dos seus códigos anteriores
+            case 'buscarPorId':
                 $usuariosController->buscarPorId();
                 break;
 
@@ -115,14 +115,13 @@ switch ($controller) {
                 $atendimentosController->listar();
                 break;
             case 'visualizar':
-                $atendimentosController->buscarPorId(); // Corrigido de visualizar() para buscarPorId() conforme o controlador
+                $atendimentosController->buscarPorId();
                 break;
             case 'criar':
                 $atendimentosController->criar();
                 break;
             case 'alterarStatus':
             case 'atualizarStatus':
-                // CORREÇÃO: alterado de atualizarStatus() para alterarStatus()
                 $atendimentosController->alterarStatus(); 
                 break;
             default:
@@ -141,6 +140,7 @@ switch ($controller) {
                 break;
                 
             case 'buscar':
+            case 'buscarPorId':
                 $pessoaController->buscarPorId();
                 break;
                 
@@ -171,6 +171,7 @@ switch ($controller) {
             case 'listar':
                 $tiposController->listar();
                 break;
+            case 'buscar':
             case 'buscarPorId':
                 $tiposController->buscarPorId();
                 break;

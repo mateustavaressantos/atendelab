@@ -47,6 +47,9 @@ switch ($controller) {
     case 'dashboard':
         $dashboard = new DashboardController();
         switch ($action) {
+            case 'index':
+                require_once __DIR__ . '/app/Views/dashboard/index.php';
+                break;
             case 'resumo':
                 $dashboard->resumo();
                 break;

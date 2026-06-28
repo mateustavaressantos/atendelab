@@ -54,20 +54,25 @@ require __DIR__ . '/../layouts/header.php';
 
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
-    const targets = {
-        pessoas: document.getElementById('totalPessoas'),
-        tipos: document.getElementById('totalTipos'),
-        atendimentos: document.getElementById('totalAtendimentos')
-    };
+    const elPessoas = document.getElementById('totalPessoas');
+    const elTipos = document.getElementById('totalTipos');
+    const elAtendimentos = document.getElementById('totalAtendimentos');
     
-    for (const [controller, element] of Object.entries(targets)) {
-        try {
-            const response = await AtendeLabApi.get(controller, 'listar');
-            element.textContent = AtendeLabApi.toList(response).length;
-        } catch (error) {
-            element.textContent = '!';
-            element.title = error.message;
+    try {
+        const response = await AtendeLabApi.get('dashboard', 'resumo');
+        
+        if (response && response.indicadores) {
+            elPessoas.textContent = response.indicadores.total_pessoas ?? 0;
+            elTipos.textContent = response.indicadores.total_tipos ?? 0;
+            elAtendimentos.textContent = response.indicadores.total_atendimentos ?? 0;
+        } else {
+            throw new Error('Formato de resposta inválido');
         }
+    } catch (error) {
+        console.error('Erro ao carregar o dashboard:', error);
+        elPessoas.textContent = '!';
+        elTipos.textContent = '!';
+        elAtendimentos.textContent = '!';
     }
 });
 </script>
